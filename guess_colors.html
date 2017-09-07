@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Guessing color numbers</title>
+</head>
+<body onload = on_game()>
+	<script type="text/javascript">
+		var final = false;
+		var times = 1;
+		var color_list = ['blue','cyan','gold','green','magenta','orange','red','white','yellow'];
+		var random_color = color_list[Math.floor(Math.random() * 9)];
+		function on_game(){
+			while(!final){
+				var guess_color = prompt("I am thinking of one of these colors:\nblue, cyan, gold, green, magenta, orange, red, white, yellow\n\nWhat color am I thinking of?");
+				final = game_on(guess_color);
+			}
+			myBody=document.getElementsByTagName("body")[0];
+			myBody.style.background=random_color;
+			alert("Congratulations! You have guessed the color! \nIt took you " + times + " times to finish the game!\nYou can see the color in the background.")
+		}
+		function game_on(color_input){
+			if(color_input == random_color)
+				return true
+			else if(color_list.indexOf(color_input) < 0)
+				alert("Sorry, I don't recognize your color.\nPlease try again.")
+			else if(color_input < random_color)
+				alert("Sorry, your guess is not correct!\nHint:your color is alphabetically lower than mine.\nPlease try again.")
+			else if(color_input > random_color)
+				alert("Sorry, your guess is not correct!\nHint:your color is alphabetically higher than mine.\nPlease try again.")
+			times += 1
+			return false
+		}
+
+	</script>
+
+</body>
+</html>
