@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gussing Number Game</title>
+</head>
+<body onload = "show_front()">
+	<script type="text/javascript">
+		var random_number = Math.floor(Math.random() * 100);
+		var guess_number;
+		var times = 0;
+		function compare(guess_number_comp){
+			if(guess_number_comp == random_number)
+				return true;
+			if(isNaN(guess_number_comp))
+				guess_number = parseInt(prompt("Please input a number!"));
+			if(guess_number_comp > 100 || guess_number_comp < 1)
+				guess_number = parseInt(prompt("Input number out of range!"));
+			if(guess_number_comp < random_number)
+				guess_number = parseInt(prompt("Too small!"));
+			if(guess_number_comp > random_number)
+				guess_number = parseInt(prompt("Too big!"));
+			times += 1;
+			return false;
+		}
+		function show_front(){
+			var guess_number_text;
+			var finish = false;
+			guess_number_text = prompt("I'm thinking about a integer in 1~100. What is it?");
+			guess_number = parseInt(guess_number_text);
+			while(!finish)
+				finish = compare(guess_number);
+			if(confirm("Congratulations! You have tried " + times + " times Go back to your home page?"))
+				document.location.href="http://www.pornhub.com"
+		}
+	</script>
+
+</body>
+</html>
