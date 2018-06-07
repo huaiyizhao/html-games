@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>A matching game</title>
+	<style type="text/css" media="screen">
+		img {position: absolute;}
+		div {position: absolute; width: 500px; height: 500px}	
+		#rightSide {left: 500px; border-left: 1px solid black}
+	</style>
+</head>
+<body onload = "GameOn()">
+	<h1>Matching Game</h1>
+	<p>click on the extra smiling face on the left</p>
+	<div id = "leftSide">
+		
+	</div>
+	<div id = "rightSide">
+		
+	</div>
+	<script type="text/javascript">
+		var theBody = document.getElementsByTagName("body")[0];
+		var theLeftSide = document.getElementById("leftSide");
+		var theRightSide = document.getElementById("rightSide");
+		var numberofFaces = 5;			
+		function GameOn(){
+			for(var i = numberofFaces; i > 0; i--)
+				generateFacesOnLeft();
+			leftClone = theLeftSide.cloneNode(true);
+			leftClone.removeChild(leftClone.lastChild);
+			theRightSide.appendChild(leftClone);
+			theLeftSide.lastChild.onclick = function nextLevel(event){
+				event.stopPropagation();
+				numberofFaces += 5;
+				while(theLeftSide.lastChild)
+					theLeftSide.removeChild(theLeftSide.lastChild)
+				while(theRightSide.lastChild)
+					theRightSide.removeChild(theRightSide.lastChild)
+				GameOn();
+			}
+		}
+		theBody.onclick = function GameOver(){
+			if(confirm("Game Over!\nYou've achieve " + numberofFaces / 5 + " round, begin again?")){
+				while(theLeftSide.lastChild)
+					theLeftSide.removeChild(theLeftSide.lastChild)
+				while(theRightSide.lastChild)
+					theRightSide.removeChild(theRightSide.lastChild)
+				numberofFaces = 5;
+				GameOn()
+			}
+			else{
+				theBody.onclick = null;
+				theLeftSide.lastChild.onclick = null;
+			}
+		}
+		function generateFacesOnLeft(){
+			var image = document.createElement("img");
+			image.src = "smile.png";
+			image.style.top = Math.random() * 400 + "px";
+			image.style.left = Math.random() * 400 + "px";
+			theLeftSide.appendChild(image);
+		}
+	</script>
+</body>
+</html>
